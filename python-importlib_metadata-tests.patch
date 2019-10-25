@@ -1,0 +1,12 @@
+--- importlib_metadata-0.23/importlib_metadata/tests/fixtures.py.orig	2019-09-16 18:02:47.000000000 +0200
++++ importlib_metadata-0.23/importlib_metadata/tests/fixtures.py	2019-10-24 21:07:15.691684647 +0200
+@@ -12,7 +12,7 @@
+ except ImportError:
+     from contextlib2 import ExitStack
+ 
+-try:
++if sys.version_info > (3, 5): # must be compatible with importlib_metadata._compat
+     import pathlib
+-except ImportError:
++else:
+     import pathlib2 as pathlib
