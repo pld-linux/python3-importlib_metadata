@@ -9,7 +9,7 @@ Summary:	Read metadata from Python packages
 Summary(pl.UTF-8):	Odczyt metadanych z pakietów Pythona
 Name:		python-importlib_metadata
 Version:	0.23
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/importlib-metadata/
