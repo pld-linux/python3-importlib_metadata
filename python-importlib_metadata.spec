@@ -8,13 +8,13 @@
 Summary:	Read metadata from Python packages
 Summary(pl.UTF-8):	Odczyt metadanych z pakietów Pythona
 Name:		python-importlib_metadata
-Version:	1.3.0
+Version:	1.4.0
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/importlib-metadata/
 Source0:	https://files.pythonhosted.org/packages/source/i/importlib-metadata/importlib_metadata-%{version}.tar.gz
-# Source0-md5:	a70c415c516d5f7802163ab8511011b1
+# Source0-md5:	4d4a009ef0c9e2962da8126075867633
 Patch0:		%{name}-tests.patch
 URL:		https://pypi.org/project/importlib-metadata/
 %if %{with python2}
@@ -31,7 +31,7 @@ BuildRequires:	python-zipp >= 0.5
 %endif
 %endif
 %if %{with python3}
-BuildRequires:	python3-modules >= 1:3.4
+BuildRequires:	python3-modules >= 1:3.5
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-setuptools_scm
 %if %{with tests}
@@ -67,7 +67,7 @@ pakietów Pythona. Ma być przeniesiona do Pythona 3.8.
 Summary:	Read metadata from Python packages
 Summary(pl.UTF-8):	Odczyt metadanych z pakietów Pythona
 Group:		Libraries/Python
-Requires:	python3-modules >= 1:3.4
+Requires:	python3-modules >= 1:3.5
 
 %description -n python3-importlib_metadata
 importlib_metadata is a library to access the metadata for a Python
@@ -94,11 +94,19 @@ Dokumentacja API modułu Pythona importlib_metadata.
 
 %build
 %if %{with python2}
-%py_build %{?with_tests:test}
+%py_build
+
+%if %{with tests}
+%{__python} -m unittest discover -s importlib_metadata/tests -t $(pwd)
+%endif
 %endif
 
 %if %{with python3}
-%py3_build %{?with_tests:test}
+%py3_build
+
+%if %{with tests}
+%{__python3} -m unittest discover -s importlib_metadata/tests -t $(pwd)
+%endif
 %endif
 
 %if %{with doc}
