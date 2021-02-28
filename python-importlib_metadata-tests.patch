@@ -1,6 +1,7 @@
---- importlib_metadata-0.23/importlib_metadata/tests/fixtures.py.orig	2019-09-16 18:02:47.000000000 +0200
-+++ importlib_metadata-0.23/importlib_metadata/tests/fixtures.py	2019-10-24 21:07:15.691684647 +0200
-@@ -12,7 +12,7 @@
+diff -urNp -x '*.orig' importlib_metadata-1.4.0.org/importlib_metadata/tests/fixtures.py importlib_metadata-1.4.0/importlib_metadata/tests/fixtures.py
+--- importlib_metadata-1.4.0.org/importlib_metadata/tests/fixtures.py	2020-01-11 01:18:29.000000000 +0100
++++ importlib_metadata-1.4.0/importlib_metadata/tests/fixtures.py	2021-02-28 13:41:54.720031137 +0100
+@@ -12,9 +12,9 @@ try:
  except ImportError:
      from contextlib2 import ExitStack
  
@@ -10,3 +11,5 @@
 -except ImportError:
 +else:
      import pathlib2 as pathlib
+ 
+ 
