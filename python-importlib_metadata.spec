@@ -49,6 +49,7 @@ BuildRequires:	python3-zipp >= 0.5
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
+BuildRequires:	sed >= 4.0
 %if %{with doc}
 BuildRequires:	python3-rst.linker
 BuildRequires:	sphinx-pdg-3
@@ -92,6 +93,8 @@ Dokumentacja API modułu Pythona importlib_metadata.
 
 %prep
 %setup -q -n importlib_metadata-%{version}
+
+%{__sed} -i -e '/LocalProjectTests/ i@unittest.skip("requires network")' tests/test_integration.py
 
 %build
 export LC_ALL=C.UTF-8
