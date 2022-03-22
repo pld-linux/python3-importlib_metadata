@@ -8,40 +8,42 @@
 Summary:	Read metadata from Python packages
 Summary(pl.UTF-8):	Odczyt metadanych z pakietów Pythona
 Name:		python-importlib_metadata
-Version:	1.4.0
-Release:	2
+# keep 2.x here for python2 support
+Version:	2.1.3
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/importlib-metadata/
 Source0:	https://files.pythonhosted.org/packages/source/i/importlib-metadata/importlib_metadata-%{version}.tar.gz
-# Source0-md5:	4d4a009ef0c9e2962da8126075867633
-Patch0:		%{name}-tests.patch
+# Source0-md5:	10bf15d611e8d61d6f7b3aa112196fca
 URL:		https://pypi.org/project/importlib-metadata/
 %if %{with python2}
 BuildRequires:	python-modules >= 1:2.7
-BuildRequires:	python-setuptools
+BuildRequires:	python-setuptools >= 30.3
 BuildRequires:	python-setuptools_scm
 %if %{with tests}
 BuildRequires:	python-configparser >= 3.5
 BuildRequires:	python-contextlib2
-BuildRequires:	python-importlib_resources
+BuildRequires:	python-importlib_resources >= 1.3
 BuildRequires:	python-packaging
 BuildRequires:	python-pathlib2
+BuildRequires:	python-pep517
+BuildRequires:	python-pyfakefs
+BuildRequires:	python-unittest2
 BuildRequires:	python-zipp >= 0.5
 %endif
 %endif
 %if %{with python3}
 BuildRequires:	python3-modules >= 1:3.5
-BuildRequires:	python3-setuptools
+BuildRequires:	python3-setuptools >= 30.3
 BuildRequires:	python3-setuptools_scm
 %if %{with tests}
-%if "%{py3_ver}" < "3.7"
-BuildRequires:	python3-importlib_resources
+%if "%{py3_ver}" < "3.9"
+BuildRequires:	python3-importlib_resources >= 1.3
 %endif
 BuildRequires:	python3-packaging
-%if "%{py3_ver}" < "3.5"
-BuildRequires:	python3-pathlib2
-%endif
+BuildRequires:	python3-pep517
+BuildRequires:	python3-pyfakefs
 BuildRequires:	python3-zipp >= 0.5
 %endif
 %endif
@@ -90,14 +92,14 @@ Dokumentacja API modułu Pythona importlib_metadata.
 
 %prep
 %setup -q -n importlib_metadata-%{version}
-%patch0 -p1
 
 %build
+export LC_ALL=C.UTF-8
 %if %{with python2}
 %py_build
 
 %if %{with tests}
-%{__python} -m unittest discover -s importlib_metadata/tests -t $(pwd)
+%{__python} -m unittest2 discover -s tests -t $(pwd)
 %endif
 %endif
 
@@ -105,12 +107,12 @@ Dokumentacja API modułu Pythona importlib_metadata.
 %py3_build
 
 %if %{with tests}
-%{__python3} -m unittest discover -s importlib_metadata/tests -t $(pwd)
+%{__python3} -m unittest discover -s tests -t $(pwd)
 %endif
 %endif
 
 %if %{with doc}
-sphinx-build-3 -b html importlib_metadata/docs docs/_build/html
+sphinx-build-3 -b html docs docs/_build/html
 %endif
 
 %install
