@@ -6,36 +6,42 @@
 Summary:	Read metadata from Python packages
 Summary(pl.UTF-8):	Odczyt metadanych z pakietów Pythona
 Name:		python3-importlib_metadata
-Version:	4.11.3
-Release:	4
+Version:	4.12.0
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/importlib-metadata/
 Source0:	https://files.pythonhosted.org/packages/source/i/importlib-metadata/importlib_metadata-%{version}.tar.gz
-# Source0-md5:	847fb06e7f10a64785550bca255ede1f
+# Source0-md5:	cfcf29185e13439c76d09c94bc8d81f4
 URL:		https://pypi.org/project/importlib-metadata/
 BuildRequires:	python3-modules >= 1:3.7
 BuildRequires:	python3-setuptools >= 1:30.3
 BuildRequires:	python3-setuptools_scm >= 3.4.1
 BuildRequires:	python3-toml
 %if %{with tests}
-%if "%{py3_ver}" < "3.9"
+#BuildRequires:	python3-flufl.flake8
+%if "%{_ver_lt '%{py3_ver}' '3.9'}" == "1"
 BuildRequires:	python3-importlib_resources >= 1.3
 %endif
 BuildRequires:	python3-packaging
 BuildRequires:	python3-pyfakefs
 BuildRequires:	python3-pytest >= 6
-%if "%{py3_ver}" < "3.8"
+#BuildRequires:	python3-pytest-black >= 0.3.7
+#BuildRequires:	python3-pytest-checkdocs >= 2.4
+#BuildRequires:	python3-pytest-enabler >= 1.3
+#BuildRequires:	python3-pytest-flake8
+#BuildRequires:	python3-pytest-mypy >= 0.9.1
+#BuildRequires:	python3-pytest-perf >= 0.9.2
+%if "%{_ver_lt '%{py3_ver}' '3.8'}" == "1"
 BuildRequires:	python3-typing_extensions >= 3.6.4
 %endif
 BuildRequires:	python3-zipp >= 0.5
 %endif
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.714
+BuildRequires:	rpmbuild(macros) >= 1.749
 BuildRequires:	sed >= 4.0
 %if %{with doc}
-BuildRequires:	python3-jaraco.packaging >= 8.2
-#BuildRequires:	python3-jaraco.packaging >= 9  # enable when available
+BuildRequires:	python3-jaraco.packaging >= 9
 BuildRequires:	python3-rst.linker >= 1.9
 BuildRequires:	sphinx-pdg-3
 %endif
